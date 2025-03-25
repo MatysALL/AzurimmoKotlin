@@ -1,0 +1,23 @@
+import bts.sio.azurimmo.model.Batiment
+import bts.sio.azurimmo.model.Appartement
+import bts.sio.azurimmo.model.Reparation
+import retrofit2.http.GET
+import retrofit2.http.Path
+
+interface ApiService {
+    @GET("/api/batiments/")
+    suspend fun getBatiments(): List<Batiment>
+
+    @GET("/api/batiment/{batimentId}")
+    suspend fun getBatiment(): List<Batiment>
+
+    @GET("/api/appartements/")
+    suspend fun getAppartements(): List<Appartement>
+
+    @GET("/api/appartements/batiment/{batimentId}")
+    suspend fun getAppartementsByBatimentId(@Path("batimentId") batimentId: Int): List<Appartement>
+
+    @GET("/api/reparations/")
+    suspend fun getReparations(): List<Reparation>
+
+}
