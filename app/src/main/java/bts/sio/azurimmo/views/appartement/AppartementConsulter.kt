@@ -45,7 +45,7 @@ fun AppartementConsulter(
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Numéro : ${appartement?.numero ?: "Non spécifié"}",
+                    text = "${appartement?.description ?: "Non disponible"}",
                     style = MaterialTheme.typography.titleLarge
                 )
                 Text(
@@ -53,19 +53,13 @@ fun AppartementConsulter(
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "Nombre de pièces : ${appartement?.nbpieces ?: "Non spécifié"}",
+                    text = "Nombre de pièces : ${appartement?.nbPiece ?: "Non spécifié"}",
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "Description : ${appartement?.description ?: "Non disponible"}",
-                    style = MaterialTheme.typography.bodyMedium
+                    text = "Bâtiment ville : ${appartement?.batiment?.ville ?: "Aucun"}",
+                    style = MaterialTheme.typography.bodyLarge
                 )
-                Text(
-                    text = "Bâtiment associé : ${appartement?.batiment?.ville ?: "Aucun"}",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-
-
             }
         }
     }
