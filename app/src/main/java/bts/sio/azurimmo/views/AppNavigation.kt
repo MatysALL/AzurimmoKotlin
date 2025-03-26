@@ -14,33 +14,30 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         startDestination = "batiments_list",
         modifier = modifier
     ) {
+        // Batiments
         composable("batiments_list") {
             BatimentList(navController = navController)
         }
 
-        composable("reparations_list") {
-            ReparationList()
-        }
-
+        // Appartements
         composable("appartements_list") {
             AppartementList()
         }
 
+        // Appartements d'un Batiment
         composable("appartements_list?batimentId={batimentId}") { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getString("batimentId")?.toIntOrNull()
             AppartementList(batimentId = batimentId)
         }
 
-        composable("contrats_list") {
-            ContratList()
-        }
-
+        // Locataires
         composable("locataires_list") {
             LocataireList()
         }
 
-        composable("paiements_list") {
-            Text("Page paiements")
+        // Reparations
+        composable("reparations_list") {
+            ReparationList()
         }
     }
 }

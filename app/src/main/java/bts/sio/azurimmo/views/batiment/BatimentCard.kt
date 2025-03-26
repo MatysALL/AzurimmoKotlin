@@ -23,8 +23,8 @@ fun BatimentCard(batiment: Batiment, navController: NavController) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(text = batiment.adresse, style = MaterialTheme.typography.bodyLarge)
-            Text(text = batiment.ville, style = MaterialTheme.typography.bodyMedium)
+            batiment.adresse?.let { Text(text = it, style = MaterialTheme.typography.bodyLarge) }
+            batiment.ville?.let { Text(text = it, style = MaterialTheme.typography.bodyMedium) }
         }
     }
 }
