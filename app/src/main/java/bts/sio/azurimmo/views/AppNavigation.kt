@@ -26,7 +26,15 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
 
         // Appartements
         composable("appartements_list") {
-            AppartementList()
+            AppartementList(navController = navController)
+        }
+
+        // Un Appartement
+        composable("appartement_details/{appartementId}") { backStackEntry ->
+            val appartementId = backStackEntry.arguments?.getString("appartementId")?.toIntOrNull()
+            if (appartementId != null) {
+                AppartementConsulter(appartementId = appartementId)
+            }
         }
 
         // Appartements d'un bâtiment
@@ -36,8 +44,12 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 appartementViewModel.getAppartementsByBatiment(batimentId) // Charge les appartements spécifiques
                 batimentViewModel.getBatiment(batimentId) // Charge les infos du bâtiment sélectionné
             }
-            AppartementList(batimentId = batimentId)
+            AppartementList(
+                navController = navController, // Passer le navController ici
+                batimentId = batimentId
+            )
         }
+
 
         // Locataires
         composable("locataires_list") {
