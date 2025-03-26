@@ -1,5 +1,6 @@
 package bts.sio.azurimmo.views
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -7,14 +8,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.NavController
 import bts.sio.azurimmo.model.Appartement  // Mise à jour de l'import
 
 @Composable
-fun AppartementCard(appartement: Appartement) {
+fun AppartementCard(
+    appartement: Appartement,
+    onClick: () -> Unit // Ajout d'un callback pour la navigation
+    ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onClick() },
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(12.dp)
     ) {

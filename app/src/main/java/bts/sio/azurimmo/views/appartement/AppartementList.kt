@@ -13,12 +13,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import bts.sio.azurimmo.viewmodels.AppartementViewModel
 import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.viewmodels.BatimentViewModel
 
 @Composable
 fun AppartementList(
+    navController: NavHostController,
     batimentId: Int? = null,  // batimentId devient optionnel
     appartementViewModel: AppartementViewModel = viewModel(),
     batimentViewModel: BatimentViewModel = viewModel()  ) {
@@ -107,7 +109,13 @@ fun AppartementList(
 
                         // Liste des appartements
                         items(appartements) { appartement ->
-                            AppartementCard(appartement = appartement)
+                            AppartementCard(
+                                appartement = appartement,
+                                onClick = {
+                                    // Navigue vers les détails de l'appartement
+                                    navController.navigate("appartement_details/${appartement.id}")
+                                }
+                            )
                         }
                     }
 

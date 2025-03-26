@@ -19,6 +19,9 @@ class AppartementViewModel : ViewModel() {
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
 
+    private val _appartement = MutableStateFlow<Appartement?>(null)
+    val appartement: MutableStateFlow<Appartement?> = _appartement
+
     // init { getAppartements() }
 
     fun getAppartements() {
@@ -51,6 +54,24 @@ class AppartementViewModel : ViewModel() {
             } finally {
                 _isLoading.value = false
                 println("Chargement des appartements du batiment selectionné terminé" + batimentId )
+            }
+        }
+    }
+
+    fun getAppartement(appartementId : Int) {
+        viewModelScope.launch{
+            _isLoading.value = true
+            _errorMessage.value = null
+
+            try {
+                val response = RetrofitInstance.api.getAppartement(appartementId)
+                _appartement.value = response
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est produite"}"
+            } finally {
+                _isLoading.value = false
+                println("Chargement terminé pour le bâtiment $appartementId")
+
             }
         }
     }
