@@ -5,12 +5,14 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiService {
+    // Service Batiments
     @GET("/api/batiments/")
     suspend fun getBatiments(): List<Batiment>
 
     @GET("/api/batiment/{batimentId}")
     suspend fun getBatiment(): List<Batiment>
 
+    // Service Appartements
     @GET("/api/appartements/")
     suspend fun getAppartements(): List<Appartement>
 
