@@ -130,14 +130,4 @@ fun AppartementList(
             }
         }
     }
-
-    when {
-        isLoading -> CircularProgressIndicator()
-        errorMessage != null -> Text(text = errorMessage!!, color = Color.Red)
-        else -> LazyColumn {
-            items(appartements) { appartement ->
-                AppartementCard(appartement = appartement)
-            }
-        }
-    }
 }

@@ -53,6 +53,10 @@ fun AppartementCard(appartement: Appartement) {
                     text = String.format("%.2f", appartement.surface),
                     style = MaterialTheme.typography.bodyLarge
                 )
+                Text(
+                    text = " m²",
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
         }
     }
