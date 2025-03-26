@@ -30,11 +30,12 @@ fun AppBottomBar(navController: NavController) {
                     selectedItem = index
                     navController.navigate(item.route) {
                         popUpTo(navController.graph.startDestinationId) {
-                            saveState = true
+                            inclusive = false // Assurez-vous de ne pas supprimer la page initiale
                         }
-                        launchSingleTop = true
-                        restoreState = true
+                        launchSingleTop = true // Évite de recréer plusieurs fois la même destination
+                        restoreState = true // Restaurer l'état si possible
                     }
+
 
                 }
             )
