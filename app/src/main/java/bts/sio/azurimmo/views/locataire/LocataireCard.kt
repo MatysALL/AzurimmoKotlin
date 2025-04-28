@@ -22,7 +22,6 @@ fun LocataireCard(locataire: Locataire) {
         ) {
             Text(text = locataire.prenom, style = MaterialTheme.typography.bodyLarge)
             Text(text = locataire.nom, style = MaterialTheme.typography.bodyMedium)
-            Text(text = locataire.datenaiss, style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

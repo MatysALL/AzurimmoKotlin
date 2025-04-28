@@ -108,12 +108,13 @@ fun AppartementList(
 
 
                         // Liste des appartements
+
                         items(appartements) { appartement ->
                             AppartementCard(
                                 appartement = appartement,
                                 onClick = {
                                     // Navigue vers les détails de l'appartement
-                                    navController.navigate("appartement_details/${appartement.numero}")
+                                    navController.navigate("appartement_details/${appartement.id}")
                                 }
                             )
                         }

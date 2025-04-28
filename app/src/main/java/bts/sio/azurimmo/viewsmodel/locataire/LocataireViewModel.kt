@@ -18,10 +18,10 @@ class LocataireViewModel : ViewModel() {
     private fun getLocataires() {
         viewModelScope.launch {
             _locataires.value = listOf(
-                Locataire(1, "ALLANET", "Matys", "2006-11-25"),
-                Locataire(2, "DENIEL", "Théo","2005-12-25"),
-                Locataire(3, "LEROSSIGNOLE", "Baptiste","2004-01-25"),
-                Locataire(4, "MOUCHARD", "Mathieu","2003-02-25")
+                Locataire(1, "ALLANET", "Matys", 0,"matysallanet@gmail.com"),
+                Locataire(2, "DENIEL", "Théo",0,"Théo@gmail.com"),
+                Locataire(3, "LEROSSIGNOLE", "Baptiste",0,"Baptiste@gmail.com"),
+                Locataire(4, "MOUCHARD", "Mathieu",0,"Mathieu@gmail.com")
             )
         }
     }

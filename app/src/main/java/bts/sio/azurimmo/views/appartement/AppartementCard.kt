@@ -10,6 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import bts.sio.azurimmo.model.Appartement  // Mise à jour de l'import
+import bts.sio.azurimmo.model.Batiment
+
 
 @Composable
 fun AppartementCard(
@@ -30,7 +32,7 @@ fun AppartementCard(
 
             Row {
                 Text(
-                    text = "Numero : ",
+                    text = "Numéro : ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
@@ -67,3 +69,23 @@ fun AppartementCard(
         }
     }
 }
+
+/*
+@Composable
+fun AppartementCard(appartement: Appartement, navController: NavController) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(text = appartement.numero+appartement.description, style = MaterialTheme.typography.bodyMedium)
+            Text(text = "surface : "+appartement.surface+"m²", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "pièces : "+appartement.nbPiece, style = MaterialTheme.typography.bodyMedium)
+        }
+    }
+}*/
