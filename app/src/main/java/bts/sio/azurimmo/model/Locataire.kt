@@ -4,5 +4,6 @@ data class Locataire(
     val id: Int,
     val nom: String,
     val prenom: String,
-    val datenaiss: String
+    val telephone: Int,
+    val email: String
 )

@@ -50,7 +50,6 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             )
         }
 
-
         // Locataires
         composable("locataires_list") {
             LocataireList() // Affiche la liste des locataires

@@ -12,10 +12,11 @@ import androidx.navigation.NavController
 @Composable
 fun AppBottomBar(navController: NavController) {
     val items = listOf(
-        BottomNavItem("Bâtiments", "batiments_list", Icons.Filled.Business),
-        BottomNavItem("Appts", "appartements_list", Icons.Filled.Home),
-        BottomNavItem("Locataires", "locataires_list", Icons.Filled.Person),
-        BottomNavItem("Reparations", "reparations_list", Icons.Filled.Description)
+        BottomNavItem("Bâtiment", "batiments_list", Icons.Filled.Business),
+        BottomNavItem("Appart", "appartements_list", Icons.Filled.Home),
+        BottomNavItem("Locataire", "locataires_list", Icons.Filled.Person),
+        BottomNavItem("Réparation", "reparations_list", Icons.Filled.Description),
+        BottomNavItem("Contrat", "contrats_list", Icons.Filled.Description),
     )
 
     var selectedItem by remember { mutableStateOf(0) }

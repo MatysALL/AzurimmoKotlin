@@ -29,15 +29,9 @@ fun ReparationCard(reparation: Reparation) {
                 style = MaterialTheme.typography.bodyMedium
             )
 
-            // Affiche le type de réparation, si disponible
-            Text(
-                text = "Type : ${reparation.type?.libelle ?: "Non disponible"}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-
             // Affiche le nom de la société, si disponible
             Text(
-                text = "Société : ${reparation.societe?.libelle ?: "Non disponible"}",
+                text = "Société : ${reparation.societe?.nom ?: "Non disponible"}",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
