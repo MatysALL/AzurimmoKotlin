@@ -3,7 +3,9 @@ import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.model.Reparation
 import bts.sio.azurimmo.model.Locataire
 import bts.sio.azurimmo.model.Contrat
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {

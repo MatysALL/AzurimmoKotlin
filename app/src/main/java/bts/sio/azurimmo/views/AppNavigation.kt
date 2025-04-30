@@ -1,7 +1,11 @@
 package bts.sio.azurimmo.views
 
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -34,11 +38,18 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         composable("appartement_details/{appartementId}") { backStackEntry ->
             val appartementId = backStackEntry.arguments?.getString("appartementId")?.toIntOrNull()
             if (appartementId != null) {
-                AppartementConsulter(appartementId = appartementId)
+                AppartementConsulter(
+                    appartementId = appartementId,
+                    onModifierClick = { id ->
+                        // Remplacez ci-dessous par la logique de navigation que vous utilisez dans votre application
+                        navController.navigate("appartement_modifier/$id")
+                    }
+                )
+            } else {
+                // Traiter le cas où l'appartementId est nul, si nécessaire
             }
         }
 
-        // Appartements d'un bâtiment
         // Liste des appartements pour un bâtiment spécifique
         composable("appartements_list/{batimentId}") { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getString("batimentId")?.toIntOrNull()
