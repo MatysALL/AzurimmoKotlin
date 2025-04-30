@@ -11,18 +11,15 @@ interface ApiService {
         @GET("batiments")
         suspend fun getBatiments(): List<Batiment>
 
-        @GET("batiments/{id}")
-        suspend fun getBatiment(@Path("id") id: Int): Batiment
-
         @GET("batiment/{batimentId}")
-        suspend fun getBatiment(): List<Batiment>
+        suspend fun getBatiment(@Path("batimentId") batimentId: Int): Batiment
 
     // Service Appartements
         @GET("appartements")
         suspend fun getAppartements(): List<Appartement>
 
-        @GET("appartements/{numero}")
-        suspend fun getAppartement(@Path("numero") id: Int): Appartement
+        @GET("appartement/{id}")
+        suspend fun getAppartement(@Path("id") id: Int): Appartement
 
         @GET("appartements/batiment/{batimentId}")
         suspend fun getAppartementsByBatimentId(@Path("batimentId") batimentId: Int): List<Appartement>

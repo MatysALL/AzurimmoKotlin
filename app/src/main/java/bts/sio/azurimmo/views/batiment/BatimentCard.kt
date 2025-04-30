@@ -16,15 +16,18 @@ fun BatimentCard(batiment: Batiment, navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable {navController.navigate("appartements_list?batimentId=${batiment.id}")},
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(8.dp)
+            .clickable {
+                navController.navigate("appartements_list/${batiment.id}") // Naviguer en utilisant l'ID du bâtiment
+            },
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
+        // Contenu de la carte ici (e.g. Titre, description)
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            batiment.ville?.let { Text(text = it, style = MaterialTheme.typography.bodyLarge) }
-            batiment.adresse?.let { Text(text = it, style = MaterialTheme.typography.bodyMedium) }
+            batiment.ville?.let { Text(text = it, style = MaterialTheme.typography.titleMedium) }
+            // Ajoutez d'autres informations si nécessaire
         }
     }
 }

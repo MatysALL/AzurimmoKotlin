@@ -43,11 +43,11 @@ fun AppartementCard(
 
             Row {
                 Text(
-                    text = "Description : ",
+                    text = "pièces : ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text =appartement.description,
+                    text =""+appartement.nbPiece,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }

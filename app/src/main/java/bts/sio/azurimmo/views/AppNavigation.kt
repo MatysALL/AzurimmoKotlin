@@ -1,5 +1,6 @@
 package bts.sio.azurimmo.views
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -38,16 +39,17 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
 
         // Appartements d'un bâtiment
-        composable("appartements_list?batimentId={batimentId}") { backStackEntry ->
+        // Liste des appartements pour un bâtiment spécifique
+        composable("appartements_list/{batimentId}") { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getString("batimentId")?.toIntOrNull()
             if (batimentId != null) {
-                appartementViewModel.getAppartementsByBatiment(batimentId) // Charge les appartements spécifiques
-                batimentViewModel.getBatiment(batimentId) // Charge les infos du bâtiment sélectionné
+                appartementViewModel.getAppartementsByBatiment(batimentId)
+                batimentViewModel.getBatiment(batimentId)
+            } else {
+                // Gestion de l'erreur si batimentId est nul
+                Text("Erreur : ID du bâtiment invalide.")
             }
-            AppartementList(
-                navController = navController, // Passer le navController ici
-                batimentId = batimentId
-            )
+            AppartementList(navController = navController, batimentId = batimentId)
         }
 
         // Locataires

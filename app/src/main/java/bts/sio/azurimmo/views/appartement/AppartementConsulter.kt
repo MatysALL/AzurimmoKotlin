@@ -45,19 +45,45 @@ fun AppartementConsulter(
                     .padding(16.dp)
             ) {
                 Text(
+                    text = "${appartement?.numero ?: "Non disponible"}",
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold), // Mettre le numéro en gras
+                    modifier = Modifier.padding(bottom = 4.dp), // Espace sous le numéro
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
                     text = "${appartement?.description ?: "Non disponible"}",
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge, // Style de description
+                    modifier = Modifier.padding(bottom = 16.dp), // Espace entre la description et la surface
+                )
+                Text(
+                    text = "Détails de l'appartement :",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(bottom = 4.dp), // Espace avant les détails
+                    color = MaterialTheme.colorScheme.primary
                 )
                 Text(
                     text = "Surface : ${appartement?.surface ?: "Non spécifiée"} m²",
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = 4.dp) // Espace entre la surface et le nombre de pièces
                 )
                 Text(
                     text = "Nombre de pièces : ${appartement?.nbPiece ?: "Non spécifié"}",
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = 16.dp) // Espace avant le détail du bâtiment
                 )
                 Text(
-                    text = "Bâtiment ville : ${appartement?.batiment?.ville ?: "Aucun"}",
+                    text = "Détails du Batiment :",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(bottom = 4.dp), // Espace avant les détails
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = "Ville de l'appartement : ${appartement?.batiment?.ville ?: "Aucune"}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = 4.dp) // Espace avant l'adresse
+                )
+                Text(
+                    text = "Adresse de l'appartement : ${appartement?.batiment?.adresse ?: "Aucune"}",
                     style = MaterialTheme.typography.bodyLarge
                 )
             }

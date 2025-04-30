@@ -23,8 +23,8 @@ fun AppartementList(
     navController: NavHostController,
     batimentId: Int? = null,  // batimentId devient optionnel
     appartementViewModel: AppartementViewModel = viewModel(),
-    batimentViewModel: BatimentViewModel = viewModel()  ) {
-
+    batimentViewModel: BatimentViewModel = viewModel()
+) {
     val appartements by appartementViewModel.appartements.collectAsState()
     val isLoading by appartementViewModel.isLoading.collectAsState()
     val errorMessage by appartementViewModel.errorMessage.collectAsState()
@@ -34,8 +34,8 @@ fun AppartementList(
         if (batimentId == null) {
             appartementViewModel.getAppartements()  // Charge tous les appartements
         } else {
-            appartementViewModel.getAppartementsByBatiment(batimentId)
-            batimentViewModel.getBatiment(batimentId)// Charge par bâtiment
+            appartementViewModel.getAppartementsByBatiment(batimentId) // Charge les appartements par bâtiment
+            batimentViewModel.getBatiment(batimentId) // Charge les informations du bâtiment
         }
     }
 
@@ -57,9 +57,8 @@ fun AppartementList(
             }
             else -> {
                 LazyColumn {
-
-                    // BLOC D'INFOS SUR LE BATIMENT SI SELECTIONNE AVANT
-                    if (batiment != null) {
+                    // Bloc pour afficher les informations sur le bâtiment
+                    batiment?.let {
                         item {
                             Column(
                                 modifier = Modifier
@@ -75,12 +74,12 @@ fun AppartementList(
                                 )
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text(
-                                    text = "Adresse : ${batiment?.adresse ?: "Non défini"}",
+                                    text = "Adresse : ${it.adresse}",
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
-                                    text = "Ville : ${batiment?.ville ?: "Non défini"}",
+                                    text = "Ville : ${it.ville}",
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
@@ -88,11 +87,9 @@ fun AppartementList(
                         }
                     }
 
-                    // S'il y a des appartements
+                    // Liste des appartements
                     if (appartements.isNotEmpty()) {
-
-
-                        // Titre Liste des appartements
+                        // Titre de la liste des appartements
                         item {
                             Text(
                                 text = "Liste des appartements",
@@ -101,14 +98,12 @@ fun AppartementList(
                                     .fillMaxWidth()
                                     .padding(vertical = 1.dp)
                                     .padding(16.dp),
-                                textAlign = TextAlign.Center, // Alignement à gauche
+                                textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.primary
                             )
                         }
 
-
-                        // Liste des appartements
-
+                        // Afficher les appartements dans une liste
                         items(appartements) { appartement ->
                             AppartementCard(
                                 appartement = appartement,
@@ -118,19 +113,17 @@ fun AppartementList(
                                 }
                             )
                         }
-                    }
-
-                    else {
-                        // Il n'y a pas d'appartement pour ce batiment
+                    } else {
+                        // Message si aucun appartement n'est associé à ce bâtiment
                         item {
                             Text(
-                                text = "Pas d'appartement pour ce batiment",
+                                text = "Pas d'appartement pour ce bâtiment",
                                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(vertical = 1.dp)
                                     .padding(16.dp),
-                                textAlign = TextAlign.Center, // Alignement à gauche
+                                textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.primary
                             )
                         }
