@@ -1,5 +1,8 @@
 package bts.sio.azurimmo.viewmodels
 
+import android.net.http.HttpException
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bts.sio.azurimmo.api.RetrofitInstance
@@ -8,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import bts.sio.azurimmo.model.Appartement  // Mise à jour de l'import
 import bts.sio.azurimmo.model.Batiment
+import java.io.IOException
 
 class AppartementViewModel : ViewModel() {
     private val _appartements = MutableStateFlow<List<Appartement>>(emptyList())
