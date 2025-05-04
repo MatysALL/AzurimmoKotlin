@@ -6,7 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
-import bts.sio.azurimmo.model.Locataire  // Mise à jour de l'import
+import androidx.compose.ui.unit.sp
+import bts.sio.azurimmo.model.Locataire
 
 @Composable
 fun LocataireCard(locataire: Locataire) {
@@ -14,14 +15,20 @@ fun LocataireCard(locataire: Locataire) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(text = locataire.prenom, style = MaterialTheme.typography.bodyLarge)
-            Text(text = locataire.nom, style = MaterialTheme.typography.bodyMedium)
+
+            val prenom = locataire.prenom ?: "monsieur"
+            val nom = locataire.nom ?: "X"
+
+            Text(
+                text = "$prenom $nom",
+                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp)
+            )
         }
     }
 }

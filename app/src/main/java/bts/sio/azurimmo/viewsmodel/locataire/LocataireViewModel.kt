@@ -1,28 +1,39 @@
 package bts.sio.azurimmo.viewmodels
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import bts.sio.azurimmo.model.Locataire  // Mise à jour de l'import
+import bts.sio.azurimmo.model.Locataire
+import bts.sio.azurimmo.api.RetrofitInstance
 
 class LocataireViewModel : ViewModel() {
     private val _locataires = MutableStateFlow<List<Locataire>>(emptyList())
     val locataires: StateFlow<List<Locataire>> = _locataires
 
-    init {
-        getLocataires()
-    }
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
-    private fun getLocataires() {
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getLocataires() {
         viewModelScope.launch {
-            _locataires.value = listOf(
-                Locataire(1, "ALLANET", "Matys", 0,"matysallanet@gmail.com"),
-                Locataire(2, "DENIEL", "Théo",0,"Théo@gmail.com"),
-                Locataire(3, "LEROSSIGNOLE", "Baptiste",0,"Baptiste@gmail.com"),
-                Locataire(4, "MOUCHARD", "Mathieu",0,"Mathieu@gmail.com")
-            )
+            _isLoading.value = true
+            _errorMessage.value = null
+
+            try {
+                val response = RetrofitInstance.api.getLocataires()
+                _locataires.value = response
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est produite"}"
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }
