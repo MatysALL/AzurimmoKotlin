@@ -1,17 +1,14 @@
 package bts.sio.azurimmo.viewmodels
 
-import android.net.http.HttpException
 import android.os.Build
-import androidx.annotation.RequiresExtension
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import bts.sio.azurimmo.api.RetrofitInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import bts.sio.azurimmo.model.Appartement  // Mise à jour de l'import
-import bts.sio.azurimmo.model.Batiment
-import java.io.IOException
+import bts.sio.azurimmo.model.Appartement
+import bts.sio.azurimmo.api.RetrofitInstance
 
 class AppartementViewModel : ViewModel() {
     private val _appartements = MutableStateFlow<List<Appartement>>(emptyList())
@@ -23,15 +20,11 @@ class AppartementViewModel : ViewModel() {
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
 
-    private val _appartement = MutableStateFlow<Appartement?>(null)
-    val appartement: MutableStateFlow<Appartement?> = _appartement
-
-    // init { getAppartements() }
-
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getAppartements() {
         viewModelScope.launch {
             _isLoading.value = true
-            _errorMessage.value = null  // Réinitialise l'erreur avant l'appel
+            _errorMessage.value = null
 
             try {
                 val response = RetrofitInstance.api.getAppartements()
@@ -40,42 +33,6 @@ class AppartementViewModel : ViewModel() {
                 _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est produite"}"
             } finally {
                 _isLoading.value = false
-                println("Chargement terminé")
-            }
-        }
-    }
-
-    fun getAppartementsByBatiment(batimentId: Int) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            _errorMessage.value = null  // Réinitialise l'erreur avant l'appel
-            try {
-                val response = RetrofitInstance.api.getAppartementsByBatimentId(batimentId)
-                _appartements.value = response
-
-            } catch (e: Exception) {
-                _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est produite"}"
-            } finally {
-                _isLoading.value = false
-                println("Chargement des appartements du batiment selectionné terminé" + batimentId )
-            }
-        }
-    }
-
-    fun getAppartement(appartementId : Int) {
-        viewModelScope.launch{
-            _isLoading.value = true
-            _errorMessage.value = null
-
-            try {
-                val response = RetrofitInstance.api.getAppartement(appartementId)
-                _appartement.value = response
-            } catch (e: Exception) {
-                _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est produite"}"
-            } finally {
-                _isLoading.value = false
-                println("Chargement terminé pour le bâtiment $appartementId")
-
             }
         }
     }

@@ -1,76 +1,56 @@
 package bts.sio.azurimmo.views
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.lifecycle.viewmodel.compose.viewModel
-import bts.sio.azurimmo.viewmodels.AppartementViewModel
 import bts.sio.azurimmo.viewmodels.BatimentViewModel
+import bts.sio.azurimmo.viewmodels.AppartementViewModel
+import bts.sio.azurimmo.viewmodels.ContratViewModel
+import bts.sio.azurimmo.viewmodels.LocataireViewModel
+import bts.sio.azurimmo.viewmodels.ReparationViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
+    // Initialisation du ViewModel pour les bâtiments
     val batimentViewModel: BatimentViewModel = viewModel()
     val appartementViewModel: AppartementViewModel = viewModel()
+    val contratViewModel: ContratViewModel = viewModel()
+    val locataireViewModel: LocataireViewModel = viewModel()
+    val reparationViewModel: ReparationViewModel = viewModel()
 
     NavHost(
         navController = navController,
-        startDestination = "batiments_list",
+        startDestination = "batiments_list", // Lancement direct sur la liste des bâtiments
         modifier = modifier
     ) {
-        // Bâtiments
+        // Navigation vers la liste des bâtiments
         composable("batiments_list") {
-            BatimentList(navController = navController)
+            BatimentList(viewModel = batimentViewModel) // Utilisation du ViewModel pour charger la liste des batiments
         }
 
-        // Appartements
         composable("appartements_list") {
-            AppartementList(navController = navController)
+            AppartementList(viewModel = appartementViewModel) // Affiche la liste des appartements
         }
 
-        // Un Appartement
-        composable("appartement_details/{appartementId}") { backStackEntry ->
-            val appartementId = backStackEntry.arguments?.getString("appartementId")?.toIntOrNull()
-            if (appartementId != null) {
-                AppartementConsulter(
-                    appartementId = appartementId,
-                    onModifierClick = { id ->
-                        // Remplacez ci-dessous par la logique de navigation que vous utilisez dans votre application
-                        navController.navigate("appartement_modifier/$id")
-                    }
-                )
-            } else {
-                // Traiter le cas où l'appartementId est nul, si nécessaire
-            }
+        composable("contrats_list") {
+            ContratList(viewModel = contratViewModel) // Affiche la liste des contrats
         }
 
-        // Liste des appartements pour un bâtiment spécifique
-        composable("appartements_list/{batimentId}") { backStackEntry ->
-            val batimentId = backStackEntry.arguments?.getString("batimentId")?.toIntOrNull()
-            if (batimentId != null) {
-                appartementViewModel.getAppartementsByBatiment(batimentId)
-                batimentViewModel.getBatiment(batimentId)
-            } else {
-                // Gestion de l'erreur si batimentId est nul
-                Text("Erreur : ID du bâtiment invalide.")
-            }
-            AppartementList(navController = navController, batimentId = batimentId)
-        }
-
-        // Locataires
         composable("locataires_list") {
-            LocataireList() // Affiche la liste des locataires
+            LocataireList(viewModel = locataireViewModel) // Affiche la liste des contrats
         }
 
-        // Réparations
         composable("reparations_list") {
-            ReparationList() // Affiche la liste des réparations
+            ReparationList(viewModel = reparationViewModel) // Affiche la liste des contrats
         }
     }
 }

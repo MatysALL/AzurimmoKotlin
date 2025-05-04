@@ -6,7 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
-import bts.sio.azurimmo.model.Reparation  // Mise à jour de l'import
+import androidx.compose.ui.unit.sp
+import bts.sio.azurimmo.model.Reparation
 
 @Composable
 fun ReparationCard(reparation: Reparation) {
@@ -14,25 +15,18 @@ fun ReparationCard(reparation: Reparation) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            // Affiche la description de la réparation
-            Text(text = reparation.description, style = MaterialTheme.typography.bodyLarge)
 
-            // Affiche la description de l'appartement, si disponible
-            Text(
-                text = "Description de l'appartement : ${reparation.appartement?.description ?: "Non disponible"}",
-                style = MaterialTheme.typography.bodyMedium
-            )
+            val description = reparation.description ?: "Description manquante"
 
-            // Affiche le nom de la société, si disponible
             Text(
-                text = "Société : ${reparation.societe?.nom ?: "Non disponible"}",
-                style = MaterialTheme.typography.bodyMedium
+                text = "$description",
+                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp)
             )
         }
     }

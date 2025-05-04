@@ -6,7 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
-import bts.sio.azurimmo.model.Contrat  // Mise à jour de l'import
+import androidx.compose.ui.unit.sp
+import bts.sio.azurimmo.model.Contrat
 
 @Composable
 fun ContratCard(contrat: Contrat) {
@@ -14,14 +15,28 @@ fun ContratCard(contrat: Contrat) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(text = "debut : "+contrat.datedebut, style = MaterialTheme.typography.bodyMedium)
-            Text(text = "fin : "+contrat.datefin, style = MaterialTheme.typography.bodyMedium)
+            contrat.appartement?.numero?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            } ?: Text(text = "Numéro inconnue", style = MaterialTheme.typography.bodyMedium)
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            val debut = contrat.datedebut ?: "Date début inconnue"
+            val fin = contrat.datefin ?: "Date fin inconnue"
+
+            Text(
+                text = "$debut - $fin",
+                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp)
+            )
         }
     }
 }
