@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 object RetrofitInstance {
     //private const val BASE_URL = "http://10.0.2.2:8080/"
-    //private const val BASE_URL = "https://172.20.177.251:8080/matysazurimmo_war/"
-    private const val BASE_URL = "https://prodtomcat.inforostand14.net/matysazurimmo/"
+    private const val BASE_URL = "http://172.20.177.251:8080/matysazurimmo/"
+    //private const val BASE_URL = "https://prodtomcat.inforostand14.net/matysazurimmo/"
 
     @RequiresApi(Build.VERSION_CODES.O)
     private val localDateDeserializer: JsonDeserializer<LocalDate> = JsonDeserializer { json, _, _ ->
