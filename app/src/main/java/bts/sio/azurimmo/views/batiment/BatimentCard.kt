@@ -54,7 +54,7 @@ fun BatimentCard(
                     Text("Modifier", color = MaterialTheme.colorScheme.onPrimary)
                 }
 
-                // Bouton Supprimer
+                //Bouton Supprimer
                 Button(
                     onClick = onDeleteClick,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)

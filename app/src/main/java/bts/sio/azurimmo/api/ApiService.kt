@@ -25,7 +25,7 @@ interface ApiService {
         suspend fun editBatiment(@Body batiment: Batiment): Batiment
 
         @DELETE("batiment/{id}")
-        suspend fun deleteBatiment(@Body batiment: Int): Batiment
+        suspend fun deleteBatiment(@Path("id") id: Int) // ✅ Utilise @Path et retourne Unit
 
     // Service Appartements
         @GET("appartements") // Liste des Appartements
