@@ -16,6 +16,8 @@ import bts.sio.azurimmo.viewmodels.AppartementViewModel
 import bts.sio.azurimmo.viewmodels.ContratViewModel
 import bts.sio.azurimmo.viewmodels.LocataireViewModel
 import bts.sio.azurimmo.viewmodels.ReparationViewModel
+import bts.sio.azurimmo.views.batiment.BatimentEditForm
+import bts.sio.azurimmo.views.batiment.BatimentForm
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -37,9 +39,23 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             BatimentList(navController = navController) // Utilisation du ViewModel pour charger la liste des batiments
         }
 
+        composable("edit_batiment/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")?.toIntOrNull()
+            if (id != null) {
+                // Laissez BatimentEditForm obtenir son ViewModel
+                BatimentEditForm(batimentId = id, navController = navController)
+            } else {
+                Text("ID invalide")
+            }
+        }
+
         composable("appartements_list?batimentId={batimentId}") { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getString("batimentId")?.toIntOrNull()
             AppartementList(batimentId = batimentId)
+        }
+
+        composable("add_batiment") {
+            BatimentForm(navController)
         }
 
         composable("contrats_list") {
