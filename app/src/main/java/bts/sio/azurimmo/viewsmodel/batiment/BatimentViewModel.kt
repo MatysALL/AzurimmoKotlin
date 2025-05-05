@@ -16,19 +16,22 @@ import android.util.Log // Importez la classe Log
 @RequiresApi(Build.VERSION_CODES.O)
 class BatimentViewModel : ViewModel() {
 
-    // Liste des bâtiments
-    private val _batiments = MutableStateFlow<List<Batiment>>(emptyList())
-    val batiments: StateFlow<List<Batiment>> = _batiments
-
-    // État de chargement
+    // --- StateFlows pour gérer les états ---
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    // Message d'erreur
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
 
-    private val _batiment = MutableStateFlow<Batiment?>(null)
+    private val _updateSuccess = MutableStateFlow(false)
+    val updateSuccess: StateFlow<Boolean> = _updateSuccess
+
+    private val _addSuccess = MutableStateFlow(false) // Ajout d'un StateFlow pour le succès de l'ajout
+
+    private val _batiments = MutableStateFlow<List<Batiment>>(emptyList())
+    val batiments: StateFlow<List<Batiment>> = _batiments
+
+    private val _batiment = MutableStateFlow<Batiment?>(null) // Pour charger un bâtiment spécifique
     val batiment: StateFlow<Batiment?> = _batiment
 
     init {
@@ -90,4 +93,34 @@ class BatimentViewModel : ViewModel() {
             }
         }
     }
+
+    fun addBatiment(batiment: Batiment, onComplete: (Batiment?) -> Unit) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                // Envoi à l'API (ici, un POST)
+                val response = RetrofitInstance.api.addBatiment(batiment)
+                onComplete(response)
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+                onComplete(null)
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun deleteBatiment(id: Int) {
+        viewModelScope.launch {
+            try {
+                RetrofitInstance.api.deleteBatiment(id)  // 🔴 Appel API
+                _batiments.value = _batiments.value.filterNot { it.id == id }  // 🔄 Mise à jour UI
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur lors de la suppression du bâtiment: Ce batiment ne peut pas être supprimer car il possède des appartements liés. Erreur: ${e.localizedMessage ?: "Une erreur s'est produite"}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
 }
