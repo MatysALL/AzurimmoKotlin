@@ -1,5 +1,7 @@
 package bts.sio.azurimmo.views
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,10 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import bts.sio.azurimmo.viewmodels.BatimentViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
+fun BatimentList(viewModel: BatimentViewModel = viewModel(), navController: NavController) {
     // Observer les données de manière réactive
     val batiments by viewModel.batiments.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -49,7 +53,7 @@ fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
         } else {
             LazyColumn {
                 items(batiments) { batiment ->
-                    BatimentCard(batiment = batiment) // Utilisation de la carte pour chaque bâtiment
+                    BatimentCard(batiment = batiment, navController = navController) // Utilisation de la carte pour chaque bâtiment
                 }
             }
         }

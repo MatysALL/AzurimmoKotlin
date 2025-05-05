@@ -36,4 +36,20 @@ class AppartementViewModel : ViewModel() {
             }
         }
     }
+    fun getAppartementsByBatiment(batimentId: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _errorMessage.value = null  // Réinitialise l'erreur avant l'appel
+            try {
+                val response = RetrofitInstance.api.getAppartementsByBatimentId(batimentId)
+                _appartements.value = response
+
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est produite"}"
+            } finally {
+                _isLoading.value = false
+                println("Chargement des appartements du batiment selectionné terminé" + batimentId )
+            }
+        }
+    }
 }

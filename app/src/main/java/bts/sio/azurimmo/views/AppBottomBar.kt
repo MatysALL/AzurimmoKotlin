@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 fun AppBottomBar(navController: NavController) {
     val items = listOf(
         BottomNavItem("Bâtiment", "batiments_list", Icons.Filled.Business),
+        // Utiliser la route complète même sans paramètre pour la clarté
         BottomNavItem("Appart", "appartements_list", Icons.Filled.Home),
         BottomNavItem("Contrat", "contrats_list", Icons.Filled.Description),
         BottomNavItem("Locataire", "locataires_list", Icons.Filled.Person),

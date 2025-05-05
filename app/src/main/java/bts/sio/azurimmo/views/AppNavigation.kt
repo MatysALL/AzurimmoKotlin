@@ -34,11 +34,12 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
     ) {
         // Navigation vers la liste des bâtiments
         composable("batiments_list") {
-            BatimentList(viewModel = batimentViewModel) // Utilisation du ViewModel pour charger la liste des batiments
+            BatimentList(navController = navController) // Utilisation du ViewModel pour charger la liste des batiments
         }
 
-        composable("appartements_list") {
-            AppartementList(viewModel = appartementViewModel) // Affiche la liste des appartements
+        composable("appartements_list?batimentId={batimentId}") { backStackEntry ->
+            val batimentId = backStackEntry.arguments?.getString("batimentId")?.toIntOrNull()
+            AppartementList(batimentId = batimentId)
         }
 
         composable("contrats_list") {
